@@ -1,0 +1,11 @@
+{
+  myDB_findManyUser {
+    name
+    team {
+      name
+    }
+    issues {
+      userId
+    }
+  }
+}
