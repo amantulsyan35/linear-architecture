@@ -10,6 +10,8 @@ test/*.js
 .wundergraph/cache
 .wundergraph/generated
 
+.env
+
 # dependencies
 node_modules
 /.pnp
