@@ -10,7 +10,7 @@ test/*.js
 .wundergraph/cache
 .wundergraph/generated
 
-.env
+
 
 # dependencies
 node_modules
@@ -41,6 +41,7 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+.env
 
 # vercel
 .vercel
