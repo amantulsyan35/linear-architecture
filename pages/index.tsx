@@ -1,7 +1,8 @@
 import { NextPage } from "next";
-import { useQuery, withWunderGraph } from "components/generated/nextjs";
+import { useQuery, dehydrate } from "react-query";
 import { observer } from "mobx-react";
-import TaskList from "models/TaskStore";
+import TaskList from "../models/TaskStore";
+import { getUsers, queryClient } from "../src/api";
 
 const teamsArray = [
   {
@@ -44,9 +45,12 @@ const teamsArray = [
 const taskList = new TaskList(teamsArray);
 
 const Home: NextPage = () => {
-  const { data: taskObjectPool } = useQuery({
-    operationName: "tasks/getTaskData",
-  });
+  const { data } = useQuery(["users"], () => getUsers());
+
+  console.log(data);
+  // const { data: taskObjectPool } = useQuery({
+  //   operationName: "tasks/getTaskData",
+  // });
 
   return (
     <main className="">
@@ -96,4 +100,14 @@ const Home: NextPage = () => {
   );
 };
 
-export default withWunderGraph(observer(Home));
+export default observer(Home);
+
+export async function getServerSideProps() {
+  await queryClient.prefetchQuery("users", () => getUsers());
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+}
