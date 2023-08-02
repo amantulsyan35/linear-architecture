@@ -2,5 +2,9 @@ query getUsers {
   users {
     id
     name
+    team {
+      id
+      name
+    }
   }
 }

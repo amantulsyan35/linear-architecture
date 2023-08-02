@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID, FieldResolver, Root } from "type-graphql";
+import { ObjectType, Field, ID } from "type-graphql";
 import { Issue } from "../issue/issue";
 import { Team } from "../team/team";
 

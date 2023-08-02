@@ -15,25 +15,11 @@ export type Scalars = {
   Float: number;
 };
 
-export type Dog = {
-  __typename?: 'Dog';
-  ageInWeeks: Scalars['Float'];
-  attributes: Array<DogAttribute>;
-  availableDate: Scalars['String'];
-  breed: Scalars['String'];
-  color: Scalars['String'];
-  description: Array<Scalars['String']>;
-  fee: Scalars['Float'];
-  image: Scalars['String'];
-  name: Scalars['ID'];
-  sex: Scalars['String'];
-  weight: Scalars['Float'];
-};
-
-export type DogAttribute = {
-  __typename?: 'DogAttribute';
-  key: Scalars['ID'];
-  value: Scalars['String'];
+export type AllData = {
+  __typename?: 'AllData';
+  issues: Issue;
+  team: Team;
+  user: User;
 };
 
 export type Issue = {
@@ -45,20 +31,15 @@ export type Issue = {
 
 export type Query = {
   __typename?: 'Query';
-  dog?: Maybe<Dog>;
-  dogs: Array<Dog>;
+  allData: Array<AllData>;
   users: Array<User>;
-};
-
-
-export type QueryDogArgs = {
-  name: Scalars['String'];
 };
 
 export type Team = {
   __typename?: 'Team';
   id: Scalars['ID'];
   issues: Array<Issue>;
+  members: Array<User>;
   name: Scalars['String'];
 };
 
@@ -70,23 +51,30 @@ export type User = {
   team: Team;
 };
 
-export type GetDogsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetDataQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetDogsQuery = { __typename?: 'Query', dogs: Array<{ __typename?: 'Dog', name: string, breed: string, weight: number }> };
+export type GetDataQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, name: string, team: { __typename?: 'Team', id: string, name: string }, issues: Array<{ __typename?: 'Issue', id: string, name: string }> }> };
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, name: string }> };
+export type GetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, name: string, team: { __typename?: 'Team', id: string, name: string } }> };
 
 
-export const GetDogsDocument = gql`
-    query getDogs {
-  dogs {
+export const GetDataDocument = gql`
+    query getData {
+  users {
+    id
     name
-    breed
-    weight
+    team {
+      id
+      name
+    }
+    issues {
+      id
+      name
+    }
   }
 }
     `;
@@ -95,6 +83,10 @@ export const GetUsersDocument = gql`
   users {
     id
     name
+    team {
+      id
+      name
+    }
   }
 }
     `;
@@ -106,8 +98,8 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    getDogs(variables?: GetDogsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetDogsQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetDogsQuery>(GetDogsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getDogs', 'query');
+    getData(variables?: GetDataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetDataQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetDataQuery>(GetDataDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getData', 'query');
     },
     getUsers(variables?: GetUsersQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetUsersQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetUsersQuery>(GetUsersDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getUsers', 'query');

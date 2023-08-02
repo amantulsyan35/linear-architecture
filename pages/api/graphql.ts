@@ -2,11 +2,11 @@ import "reflect-metadata";
 import { NextApiRequest, NextApiResponse } from "next";
 import { ApolloServer } from "apollo-server-micro";
 import { buildSchema } from "type-graphql";
-// import { resolvers } from "@generated/type-graphql";
+import { DataResolver } from "../../src/schema/data/data.resolver";
 import { UserResolver } from "../../src/schema/user/user.resolver";
 
 const schema = await buildSchema({
-  resolvers: [UserResolver],
+  resolvers: [UserResolver, DataResolver],
 });
 
 // const schema = await buildSchema({

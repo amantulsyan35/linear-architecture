@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import { useQuery, dehydrate } from "react-query";
 import { observer } from "mobx-react";
 import TaskList from "../models/TaskStore";
-import { getUsers, queryClient } from "../src/api";
+import { getData, queryClient } from "../src/api";
 
 const teamsArray = [
   {
@@ -45,7 +45,7 @@ const teamsArray = [
 const taskList = new TaskList(teamsArray);
 
 const Home: NextPage = () => {
-  const { data } = useQuery(["users"], () => getUsers());
+  const { data } = useQuery(["allData"], () => getData());
 
   console.log(data);
   // const { data: taskObjectPool } = useQuery({
@@ -103,7 +103,7 @@ const Home: NextPage = () => {
 export default observer(Home);
 
 export async function getServerSideProps() {
-  await queryClient.prefetchQuery("users", () => getUsers());
+  await queryClient.prefetchQuery("allData", () => getData());
 
   return {
     props: {

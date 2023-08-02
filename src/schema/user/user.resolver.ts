@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 export class UserResolver {
   @Query(() => [User])
   async users() {
-    const users = await prisma.user.findMany();
+    const users = await prisma.user.findMany({ include: { team: true } });
     return users;
   }
 }

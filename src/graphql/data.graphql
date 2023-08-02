@@ -1,0 +1,14 @@
+query getData {
+  users {
+    id
+    name
+    team {
+      id
+      name
+    }
+    issues {
+      id
+      name
+    }
+  }
+}

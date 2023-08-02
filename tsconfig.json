@@ -1,9 +1,16 @@
 {
   "compilerOptions": {
+    "lib": [
+      "es5",
+      "es6"
+    ],
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2018",
-    "lib": ["dom", "dom.iterable", "esnext", "esnext.asynciterable"],
+    "sourceMap": true,
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -11,12 +18,16 @@
     "noEmit": true,
     "incremental": true,
     "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.mjs"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

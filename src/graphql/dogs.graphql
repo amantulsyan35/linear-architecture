@@ -1,7 +1,0 @@
-query getDogs {
-  dogs {
-    name
-    breed
-    weight
-  }
-}
