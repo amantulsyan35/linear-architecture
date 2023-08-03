@@ -5,12 +5,12 @@ import { Issue } from "../issue/issue";
 
 @ObjectType()
 export class AllData {
-  @Field(() => User)
-  user: User;
+  @Field(() => [User])
+  users: User[];
 
-  @Field(() => Team)
-  team: Team;
+  @Field(() => [Team])
+  teams: Team[];
 
-  @Field(() => Issue)
-  issues: Issue;
+  @Field(() => [Issue])
+  issues: Issue[];
 }

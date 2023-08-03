@@ -1,12 +1,15 @@
 // user.ts
-import { ObjectType, Field, ID } from "type-graphql";
+import { ObjectType, Field, ID, FieldResolver, Root } from "type-graphql";
 import { Issue } from "../issue/issue";
 import { Team } from "../team/team";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 @ObjectType()
 export class User {
   @Field(() => ID)
-  id: string;
+  id: number;
 
   @Field(() => String)
   name: string;
@@ -14,6 +17,6 @@ export class User {
   @Field(() => Team) // Forward declaration using function signature
   team: () => Team;
 
-  @Field(() => [Issue])
+  @Field(() => [Issue], { nullable: true })
   issues: Issue[];
 }

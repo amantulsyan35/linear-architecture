@@ -6,7 +6,7 @@ import { User } from "../user/user";
 @ObjectType()
 export class Issue {
   @Field(() => ID)
-  id: string;
+  id: number;
 
   @Field(() => String)
   name: string;

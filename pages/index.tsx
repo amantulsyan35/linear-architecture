@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import { useQuery, dehydrate } from "react-query";
 import { observer } from "mobx-react";
 import TaskList from "../models/TaskStore";
+import { PrismaClient } from "@prisma/client";
 import { getData, queryClient } from "../src/api";
 
 const teamsArray = [
@@ -104,6 +105,14 @@ export default observer(Home);
 
 export async function getServerSideProps() {
   await queryClient.prefetchQuery("allData", () => getData());
+
+  const prisma = new PrismaClient();
+
+  const users = await prisma.user.findMany({
+    include: { team: true, issues: true },
+  });
+
+  console.log({ data: users[0].issues });
 
   return {
     props: {

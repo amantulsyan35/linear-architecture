@@ -17,9 +17,9 @@ export type Scalars = {
 
 export type AllData = {
   __typename?: 'AllData';
-  issues: Issue;
-  team: Team;
-  user: User;
+  issues: Array<Issue>;
+  teams: Array<Team>;
+  users: Array<User>;
 };
 
 export type Issue = {
@@ -49,7 +49,7 @@ export type Team = {
 export type User = {
   __typename?: 'User';
   id: Scalars['ID'];
-  issues: Array<Issue>;
+  issues?: Maybe<Array<Issue>>;
   name: Scalars['String'];
   team: Team;
 };
@@ -57,7 +57,7 @@ export type User = {
 export type GetDataQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetDataQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, name: string, team: { __typename?: 'Team', id: string, name: string } }>, issues: Array<{ __typename?: 'Issue', id: string, name: string }>, teams: Array<{ __typename?: 'Team', id: string, name: string }> };
+export type GetDataQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, name: string, team: { __typename?: 'Team', id: string, name: string }, issues?: Array<{ __typename?: 'Issue', id: string, name: string }> | null }>, issues: Array<{ __typename?: 'Issue', id: string, name: string, user: { __typename?: 'User', id: string, name: string }, team: { __typename?: 'Team', id: string, name: string } }>, teams: Array<{ __typename?: 'Team', id: string, name: string, members: Array<{ __typename?: 'User', id: string, name: string }>, issues: Array<{ __typename?: 'Issue', id: string, name: string }> }> };
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -74,14 +74,34 @@ export const GetDataDocument = gql`
       id
       name
     }
+    issues {
+      id
+      name
+    }
   }
   issues {
     id
     name
+    user {
+      id
+      name
+    }
+    team {
+      id
+      name
+    }
   }
   teams {
     id
     name
+    members {
+      id
+      name
+    }
+    issues {
+      id
+      name
+    }
   }
 }
     `;

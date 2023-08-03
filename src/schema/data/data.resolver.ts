@@ -1,4 +1,4 @@
-import { Resolver, Query } from "type-graphql";
+import { Resolver, Query, FieldResolver, Root } from "type-graphql";
 import { User } from "../user/user";
 import { Team } from "../team/team";
 import { Issue } from "../issue/issue";
@@ -20,6 +20,8 @@ export class DataResolver {
         user.issues = [];
       }
     });
+
+    console.log(users);
 
     return users;
   }
@@ -45,7 +47,6 @@ export class DataResolver {
     const users = await this.users();
     const teams = await this.teams();
     const issues = await this.issues();
-
     // If a user has no issues, set the issues to an empty array
     users.forEach((user) => {
       if (!user.issues) {
