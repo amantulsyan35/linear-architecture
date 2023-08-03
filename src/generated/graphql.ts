@@ -27,11 +27,14 @@ export type Issue = {
   id: Scalars['ID'];
   name: Scalars['String'];
   team: Team;
+  user: User;
 };
 
 export type Query = {
   __typename?: 'Query';
   allData: Array<AllData>;
+  issues: Array<Issue>;
+  teams: Array<Team>;
   users: Array<User>;
 };
 
@@ -54,7 +57,7 @@ export type User = {
 export type GetDataQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetDataQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, name: string, team: { __typename?: 'Team', id: string, name: string }, issues: Array<{ __typename?: 'Issue', id: string, name: string }> }> };
+export type GetDataQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, name: string, team: { __typename?: 'Team', id: string, name: string } }>, issues: Array<{ __typename?: 'Issue', id: string, name: string }>, teams: Array<{ __typename?: 'Team', id: string, name: string }> };
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -71,10 +74,14 @@ export const GetDataDocument = gql`
       id
       name
     }
-    issues {
-      id
-      name
-    }
+  }
+  issues {
+    id
+    name
+  }
+  teams {
+    id
+    name
   }
 }
     `;

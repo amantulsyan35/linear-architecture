@@ -1,3 +1,4 @@
+// user.ts
 import { ObjectType, Field, ID } from "type-graphql";
 import { Issue } from "../issue/issue";
 import { Team } from "../team/team";
@@ -10,9 +11,9 @@ export class User {
   @Field(() => String)
   name: string;
 
-  @Field(() => Team)
-  team: Team;
+  @Field(() => Team) // Forward declaration using function signature
+  team: () => Team;
 
   @Field(() => [Issue])
-  issues: User[];
+  issues: Issue[];
 }
