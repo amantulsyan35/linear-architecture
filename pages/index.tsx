@@ -1,13 +1,13 @@
 import { useMemo } from "react";
 import { NextPage } from "next";
-import { useQuery, useMutation } from "react-query";
+import { useQuery } from "@apollo/client";
 import { observer } from "mobx-react";
 import TaskList from "../models/TaskStore";
-import { getData } from "../src/api";
+import { GET_DATA } from "../src/queries/get";
 import { convertData } from "../utils/convertDataType";
 
 const Home: NextPage = () => {
-  const { data: objectPool } = useQuery(["allData"], () => getData());
+  const { data: objectPool } = useQuery(GET_DATA);
   const objectGraph = objectPool ? convertData(objectPool) : [];
   const taskList = useMemo(() => new TaskList(objectGraph), [objectPool]);
 
