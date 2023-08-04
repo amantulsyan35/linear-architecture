@@ -1,15 +1,33 @@
 import { useMemo } from "react";
 import { NextPage } from "next";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { observer } from "mobx-react";
 import TaskList from "../models/TaskStore";
 import { GET_DATA } from "../src/queries/get";
+import { UPDATE_DATABASE_MUTATION } from "../src/queries/update";
 import { convertData } from "../utils/convertDataType";
 
 const Home: NextPage = () => {
   const { data: objectPool } = useQuery(GET_DATA);
   const objectGraph = objectPool ? convertData(objectPool) : [];
   const taskList = useMemo(() => new TaskList(objectGraph), [objectPool]);
+
+  const [markComplete, { loading, error, data: responseData }] = useMutation(
+    UPDATE_DATABASE_MUTATION
+  );
+
+  const handleMutation = async () => {
+    try {
+      const response = await markComplete({
+        variables: {
+          data: taskList,
+        },
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <main className="">
@@ -32,7 +50,7 @@ const Home: NextPage = () => {
                     <p>Assignee: {i.assignee}</p>
                     <button
                       type="button"
-                      onClick={() => {
+                      onClick={async () => {
                         taskList.markAsComplete(i.id);
                       }}
                       className="rounded bg-green-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"

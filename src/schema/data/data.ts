@@ -15,44 +15,44 @@ export class AllData {
   issues: Issue[];
 }
 
-// @InputType()
-// class IssueInput {
-//   @Field(() => Int)
-//   id: number;
+@InputType()
+class IssueInput {
+  @Field(() => Int)
+  id: number;
 
-//   @Field()
-//   title: string;
+  @Field()
+  title: string;
 
-//   @Field()
-//   assignee: string;
-// }
+  @Field()
+  assignee: string;
+}
 
-// @InputType()
-// class UserInput {
-//   @Field(() => Int)
-//   id: number;
+@InputType()
+class UserInput {
+  @Field(() => Int)
+  id: number;
 
-//   @Field()
-//   name: string;
+  @Field()
+  name: string;
 
-//   @Field(() => [IssueInput])
-//   issues: IssueInput[];
-// }
+  @Field(() => [IssueInput])
+  issues: IssueInput[];
+}
 
-// @InputType()
-// export class TeamInput {
-//   @Field(() => Int)
-//   id: number;
+@InputType()
+export class TeamInput {
+  @Field(() => Int)
+  id: number;
 
-//   @Field()
-//   name: string;
+  @Field()
+  name: string;
 
-//   @Field(() => Int)
-//   noOfIssues: number;
+  @Field(() => Int)
+  noOfIssues: number;
 
-//   @Field(() => [IssueInput])
-//   issues: IssueInput[];
+  @Field(() => [IssueInput])
+  issues: IssueInput[];
 
-//   @Field(() => [UserInput])
-//   users: UserInput[];
-// }
+  @Field(() => [UserInput])
+  users: UserInput[];
+}
