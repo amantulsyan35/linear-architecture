@@ -6,10 +6,10 @@ query getData {
       id
       name
     }
-    issues {
-      id
-      name
-    }
+    # issues {
+    #   id
+    #   name
+    # }
   }
   issues {
     id

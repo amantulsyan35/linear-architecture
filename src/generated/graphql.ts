@@ -57,7 +57,7 @@ export type User = {
 export type GetDataQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetDataQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, name: string, team: { __typename?: 'Team', id: string, name: string }, issues?: Array<{ __typename?: 'Issue', id: string, name: string }> | null }>, issues: Array<{ __typename?: 'Issue', id: string, name: string, user: { __typename?: 'User', id: string, name: string }, team: { __typename?: 'Team', id: string, name: string } }>, teams: Array<{ __typename?: 'Team', id: string, name: string, members: Array<{ __typename?: 'User', id: string, name: string }>, issues: Array<{ __typename?: 'Issue', id: string, name: string }> }> };
+export type GetDataQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, name: string, team: { __typename?: 'Team', id: string, name: string } }>, issues: Array<{ __typename?: 'Issue', id: string, name: string, user: { __typename?: 'User', id: string, name: string }, team: { __typename?: 'Team', id: string, name: string } }>, teams: Array<{ __typename?: 'Team', id: string, name: string, members: Array<{ __typename?: 'User', id: string, name: string }>, issues: Array<{ __typename?: 'Issue', id: string, name: string }> }> };
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -71,10 +71,6 @@ export const GetDataDocument = gql`
     id
     name
     team {
-      id
-      name
-    }
-    issues {
       id
       name
     }

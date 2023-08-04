@@ -1,0 +1,21 @@
+# mutation {
+#   markComplete(
+#     data: [
+#       {
+#         name: "Team Linear"
+#         noOfIssues: 2
+#         issues: [{ id: 1, title: "I-1 Bug", assignee: "Aman" }]
+#         users: [
+#           {
+#             name: "Aman"
+#             issues: [
+#               { id: 1, title: "I-1 Bug", assignee: "Aman" }
+#               { id: 2, title: "I-2 Bug", assignee: "Aman" }
+#             ]
+#           }
+#           { name: "Ravi", issues: [] }
+#         ]
+#       }
+#     ]
+#   )
+# }
