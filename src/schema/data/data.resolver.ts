@@ -68,43 +68,45 @@ export class DataResolver {
     };
   }
 
-  @Mutation(() => String) // Return type can be customized based on your use case
+  @Mutation(() => String)
   async markComplete(
     @Arg("data", () => [TeamInput]) data: TeamInput[]
   ): Promise<string> {
-    await prisma.$transaction(async (prisma) => {
-      for (const teamData of data) {
-        const team = await prisma.team.upsert({
-          where: { id: teamData.id },
-          update: {},
-          create: { name: teamData.name },
-        });
+    console.log("Received data:", JSON.stringify(data, null, 2));
 
-        for (const userData of teamData.users) {
-          const user = await prisma.user.upsert({
-            where: { id: userData.id },
-            update: {},
-            create: {
-              name: userData.name,
-              team: { connect: { id: team.id } },
-            },
-          });
+    // await prisma.$transaction(async (prisma) => {
+    //   for (const teamData of data) {
+    //     const team = await prisma.team.upsert({
+    //       where: { id: teamData.id },
+    //       update: {},
+    //       create: { name: teamData.name },
+    //     });
 
-          for (const issueData of userData.issues) {
-            await prisma.issue.upsert({
-              where: { id: issueData.id },
-              update: {},
-              create: {
-                id: issueData.id,
-                name: issueData.title,
-                userId: user.id,
-                teamId: team.id,
-              },
-            });
-          }
-        }
-      }
-    });
+    //     for (const userData of teamData.users) {
+    //       const user = await prisma.user.upsert({
+    //         where: { id: userData.id },
+    //         update: {},
+    //         create: {
+    //           name: userData.name,
+    //           team: { connect: { id: team.id } },
+    //         },
+    //       });
+
+    //       for (const issueData of userData.issues) {
+    //         await prisma.issue.upsert({
+    //           where: { id: issueData.id },
+    //           update: {},
+    //           create: {
+    //             id: issueData.id,
+    //             name: issueData.title,
+    //             userId: user.id,
+    //             teamId: team.id,
+    //           },
+    //         });
+    //       }
+    //     }
+    //   }
+    // });
 
     return "Transaction Successful";
   }

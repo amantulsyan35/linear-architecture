@@ -18,7 +18,7 @@ export class AllData {
 @InputType()
 class IssueInput {
   @Field(() => Int)
-  id: number;
+  id?: number;
 
   @Field()
   title: string;
@@ -29,8 +29,8 @@ class IssueInput {
 
 @InputType()
 class UserInput {
-  @Field(() => Int)
-  id: number;
+  @Field(() => Int, { nullable: true })
+  id?: number;
 
   @Field()
   name: string;

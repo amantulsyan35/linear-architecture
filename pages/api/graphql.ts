@@ -7,12 +7,8 @@ import { UserResolver } from "../../src/schema/user/user.resolver";
 
 const schema = await buildSchema({
   resolvers: [UserResolver, DataResolver],
+  validate: { forbidUnknownValues: false },
 });
-
-// const schema = await buildSchema({
-//   resolvers,
-//   emitSchemaFile: true,
-// });
 
 const server = new ApolloServer({
   schema,

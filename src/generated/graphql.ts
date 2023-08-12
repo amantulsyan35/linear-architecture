@@ -30,6 +30,22 @@ export type Issue = {
   user: User;
 };
 
+export type IssueInput = {
+  assignee: Scalars['String'];
+  id: Scalars['Int'];
+  title: Scalars['String'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  markComplete: Scalars['String'];
+};
+
+
+export type MutationMarkCompleteArgs = {
+  data: Array<TeamInput>;
+};
+
 export type Query = {
   __typename?: 'Query';
   allData: Array<AllData>;
@@ -46,12 +62,26 @@ export type Team = {
   name: Scalars['String'];
 };
 
+export type TeamInput = {
+  id: Scalars['Int'];
+  issues: Array<IssueInput>;
+  name: Scalars['String'];
+  noOfIssues: Scalars['Int'];
+  users: Array<UserInput>;
+};
+
 export type User = {
   __typename?: 'User';
   id: Scalars['ID'];
   issues?: Maybe<Array<Issue>>;
   name: Scalars['String'];
   team: Team;
+};
+
+export type UserInput = {
+  id?: InputMaybe<Scalars['Int']>;
+  issues: Array<IssueInput>;
+  name: Scalars['String'];
 };
 
 export type GetDataQueryVariables = Exact<{ [key: string]: never; }>;
