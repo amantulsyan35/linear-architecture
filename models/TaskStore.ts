@@ -29,18 +29,41 @@ class TaskList {
     makeObservable(this, { teams: observable, markAsComplete: action });
   }
 
-  markAsComplete(issueId: number) {
-    const filteredTeams = this.teams.map((team) => {
+  markAsComplete(issueId) {
+    const updatedTeams = this.teams.map((team) => {
       const filteredIssues = team.issues.filter(
         (issue) => issue.id !== issueId
       );
-      return { ...team, issues: filteredIssues };
+      const noOfIssues = filteredIssues.length;
+
+      const updatedUsers = team.users.map((user) => {
+        const filteredUserIssues = user.issues.filter(
+          (issue) => issue.id !== issueId
+        );
+
+        // Update user's issues with the new filtered array
+        return {
+          ...user,
+          issues: filteredUserIssues,
+        };
+      });
+
+      // Update all fields of the team with the new values
+      return {
+        ...team,
+        noOfIssues,
+        issues: filteredIssues,
+        users: updatedUsers,
+        // You can add more fields here and update them as needed
+      };
     });
+
+    // Find the issue in the removed issues
     const issue = this.teams.map((team) => {
       return team.issues.find((issue) => issue.id === issueId);
     })[0];
 
-    this.teams = filteredTeams;
+    this.teams = updatedTeams;
     return issue;
   }
 }
