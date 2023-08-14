@@ -16,13 +16,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
 
       <QueryClientProvider client={queryClient}>
-        {/* <Hydrate state={pageProps.dehydrateState}> */}
         <ApolloProvider client={apolloClient}>
           <main className="">
             <Component {...pageProps} />
           </main>
         </ApolloProvider>
-        {/* </Hydrate> */}
       </QueryClientProvider>
     </>
   );

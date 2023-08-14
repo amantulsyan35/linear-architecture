@@ -36,7 +36,12 @@ class TaskList {
       );
       return { ...team, issues: filteredIssues };
     });
+    const issue = this.teams.map((team) => {
+      return team.issues.find((issue) => issue.id === issueId);
+    })[0];
+
     this.teams = filteredTeams;
+    return issue;
   }
 }
 

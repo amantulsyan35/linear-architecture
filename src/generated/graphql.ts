@@ -32,7 +32,7 @@ export type Issue = {
 
 export type IssueInput = {
   assignee: Scalars['String'];
-  id: Scalars['Int'];
+  id: Scalars['String'];
   title: Scalars['String'];
 };
 
@@ -63,7 +63,7 @@ export type Team = {
 };
 
 export type TeamInput = {
-  id: Scalars['Int'];
+  id: Scalars['String'];
   issues: Array<IssueInput>;
   name: Scalars['String'];
   noOfIssues: Scalars['Int'];
@@ -79,7 +79,7 @@ export type User = {
 };
 
 export type UserInput = {
-  id?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars['String']>;
   issues: Array<IssueInput>;
   name: Scalars['String'];
 };

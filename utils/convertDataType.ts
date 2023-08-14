@@ -5,6 +5,7 @@ interface IssueType {
 }
 
 interface UserType {
+  id: number; // Adding id here
   name: string;
   issues: {
     id: number;
@@ -14,6 +15,7 @@ interface UserType {
 
 interface TeamType {
   name: string;
+  id: number; // Adding id here
   noOfIssues: number;
   issues: IssueType[];
   users: UserType[];
@@ -29,6 +31,7 @@ export function convertData(data): TeamType[] {
 
   const userMap = users.reduce((map, user) => {
     map[user.id] = {
+      id: user.id, // Adding id here
       name: user.name,
       issues: [],
     };
@@ -67,16 +70,19 @@ export function convertData(data): TeamType[] {
     });
 
     const users = team.members.map((member) => ({
+      id: member.id, // Adding id here
       name: member.name,
       issues: issues
         .filter((issue) => issue.assignee === member.name)
         .map((issue) => ({
           id: issue.id,
           title: issue.title,
+          assignee: issue.assignee,
         })),
     }));
 
     return {
+      id: team.id, // Adding id here
       name: team.name,
       noOfIssues: team.issues.length,
       issues,
